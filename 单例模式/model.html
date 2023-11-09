@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .model {
+      height: 200px;
+      width: 200px;
+      line-height: 200px;
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid black;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <button class="open">打开model</button>
+    <button class="close">关闭model</button>
+  </body>
+  <script>
+    // 实现全局模态框的单例模式，使用es6语法糖
+    class Model {
+      constructor() {}
+
+      static getInstance() {
+        if (!Model.instance) {
+          Model.instance = document.createElement('div')
+          Model.instance.className = 'model'
+          Model.instance.innerHtml = '这是一个全局的弹窗'
+          Model.instance.style.display = 'none'
+          document.body.appendChild(Model.instance)
+        }
+        return Model.instance
+      }
+      static open() {
+        Model.getInstance().style.display = 'block'
+      }
+      static close() {
+        Model.getInstance().style.display = 'none'
+      }
+    }
+    // 监听点击事件
+    document.querySelector('.open').addEventListener('click', () => {
+      Model.open()
+    })
+    document.querySelector('.close').addEventListener('click', () => {
+      Model.close()
+    })
+  </script>
+</html>

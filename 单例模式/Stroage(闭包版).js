@@ -9,11 +9,15 @@ StroageBase.prototype.getItem = (key) => {
 // 创建一个自调用函数来判断是否产生了StroageBase的实例
 const stroage = (function () {
   let instance = null
-  if (!instance) {
-    instance = new StroageBase()
+  return function () {
+    // 判断自由变量是否为null
+    if (!instance) {
+      // 如果为null则new出唯一实例
+      instance = new StroageBase()
+    }
+    return instance
   }
-  return instance
 })()
-const s1 = stroage
-const s2 = stroage
+const s1 = stroage()
+const s2 = stroage()
 console.log(s1 === s2)
